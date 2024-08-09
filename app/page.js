@@ -2,10 +2,6 @@
 
 import { Box, Button, Stack, TextField } from '@mui/material'
 import { useState } from 'react'
-'use client'
-
-import { Box, Button, Stack, TextField } from '@mui/material'
-import { useState } from 'react'
 
 export default function Home() {
   const [messages, setMessages] = useState([
