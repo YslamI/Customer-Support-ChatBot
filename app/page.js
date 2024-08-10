@@ -74,57 +74,63 @@ export default function Home() {
 
   return (
     <Box
-      width="100vw" height="100vh"
-      display="flex" flexDirection="column"
-      justifyContent="center" alignItems="center"
-    >
-      <Stack
-        direction="column"
-        sx={{width: {xs: "95%", md: "40%"}, height: {xs: "95%", md: "80%"}, backgroundColor: 'rgba(255, 255, 255, 0.35)',
-        backdropFilter: 'blur(8px)', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.7)'}}
-        border="1px solid black"
-        borderRadius={8}
-        p={2}
-        spacing={3}
-      >
-        <Stack
-          direction="column" spacing={2} flexGrow={1} overflow="auto" maxHeight="100%"
+  width="100vw" height="100vh"
+  display="flex" flexDirection="column"
+  justifyContent="center" alignItems="center"
+  sx={{
+    background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(0, 128, 255, 0.5))',
+  }}
+>
+  <Stack
+    direction="column"
+    sx={{
+      width: { xs: '95%', md: '40%' },
+      height: { xs: '95%', md: '80%' },
+      backgroundColor: 'rgba(255, 255, 255, 0.35)',
+      backdropFilter: 'blur(8px)',
+      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.7)',
+    }}
+    border="1px solid black"
+    borderRadius={8}
+    p={2}
+    spacing={3}
+  >
+    <Stack direction="column" spacing={2} flexGrow={1} overflow="auto" maxHeight="100%">
+      {messages.map((message, index) => (
+        <Box
+          key={index}
+          display="flex"
+          justifyContent={message.role === 'assistant' ? 'flex-start' : 'flex-end'}
         >
-          {messages.map((message, index) => (
-            <Box 
-            key={index}
-            display="flex"
-            justifyContent={
-              message.role == 'assistant' ? 'flex-start' : 'flex-end '
-            }><Box bgcolor={
-              message.role == 'assistant' ? 'primary.main' : 'secondary.main'
-            }
+          <Box
+            bgcolor={message.role === 'assistant' ? 'primary.main' : 'secondary.main'}
             color="white"
             borderRadius={16}
             p={3}
-            >
-              {message.content}
-              </Box></Box>
-          ))}
-        </Stack>
-        <Stack direction={'row'} spacing={2}>
-          <TextField
-            label="Message"
-            fullWidth
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyPress={handleKeyPress}
-            disabled={isLoading}
-          />
-          <Button 
-            variant="contained" 
-            onClick={sendMessage}
-            disabled={isLoading}
           >
-            {isLoading ? 'Sending...' : 'Send'}
-          </Button>
-        </Stack>
-      </Stack>
-    </Box>
+            {message.content}
+          </Box>
+        </Box>
+      ))}
+    </Stack>
+    <Stack direction="row" spacing={2}>
+      <TextField
+        label="Message"
+        fullWidth
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        onKeyPress={handleKeyPress}
+        disabled={isLoading}
+      />
+      <Button
+        variant="contained"
+        onClick={sendMessage}
+        disabled={isLoading}
+      >
+        {isLoading ? 'Sending...' : 'Send'}
+      </Button>
+    </Stack>
+  </Stack>
+</Box>
   )
 }
